@@ -1,4 +1,5 @@
 import vtk
+from slicer import Slicer
 
 def read_mha(fn):
     reader = vtk.vtkMetaImageReader()
@@ -9,7 +10,7 @@ def read_mha(fn):
 
 def read_dicom(dir_):
   reader = vtk.vtkDICOMImageReader()
-  reader.SetDirectoryName('/full/path/to/my/dicom/images/')
+  reader.SetDirectoryName(dir_)
   reader.SetDataOrigin(0.0,0.0,0.0)
   reader.Update()
 
@@ -55,13 +56,17 @@ def cut(source):
 '''One render window, multiple viewports'''
 rw = vtk.vtkRenderWindow()
 iren = vtk.vtkRenderWindowInteractor()
+
+interactorStyle = vtk.vtkInteractorStyleImage()
+iren.SetInteractorStyle(interactorStyle)
+
 iren.SetRenderWindow(rw)
 # Define viewport ranges
 xmins=[0,.5,0,.5]
 xmaxs=[0.5,1,0.5,1]
 ymins=[0,0,.5,.5]
 ymaxs=[0.5,0.5,1,1]
-views = ['axial','volume','coronal','sagittal']
+views = ['coronal','sagittal','axial','volume']
 viewer = {}
 viewer['window'] = rw
 viewer['interactor'] = iren
@@ -71,12 +76,32 @@ r = read_mha("/home/gabriel/dropbox/vascular_data/OSMSC0101/OSMSC0101-cm.mha")
 
 for i in range(4):
     v = views[i]
-    viewer['views'][v] = vtk.vtkRenderer()
-    viewer['window'].AddRenderer(viewer['views'][v])
-    viewer['views'][v].SetViewport(xmins[i],ymins[i],xmaxs[i],ymaxs[i])
-    viewer['views'][v].AddActor(cut(r))
-    viewer['views'][v].ResetCamera()
+    viewer['views'][v] = {}
+    viewer['views'][v]['renderer'] = vtk.vtkRenderer()
+    viewer['window'].AddRenderer(viewer['views'][v]['renderer'])
+    viewer['views'][v]['renderer'].SetViewport(xmins[i],ymins[i],xmaxs[i],ymaxs[i])
+    viewer['views'][v]['slicer'] = Slicer(r,v)
+    viewer['views'][v]['renderer'].AddActor(viewer['views'][v]['slicer'].actor)
+    viewer['views'][v]['renderer'].ResetCamera()
 #add_pd(viewer,sphereSource)
+
+def MouseCallback(obj,event):
+
+    (mouseX, mouseY) = iren.GetEventPosition()
+    s = viewer['window'].GetSize()
+    mouseX = float(mouseX)/s[0]
+    mouseY = float(mouseY)/s[1]
+
+    for k in viewer['views'].keys():
+        v = viewer['views'][k]['renderer'].GetViewport()
+
+        if mouseX > v[0] and mouseX < v[2] and mouseY > v[1] and mouseY < v[3]:
+            viewer['views'][k]['slicer'].update(obj,iren,event)
+    viewer['window'].Render()
+
+interactorStyle.AddObserver("MouseMoveEvent", MouseCallback)
+interactorStyle.AddObserver("LeftButtonPressEvent", MouseCallback)
+interactorStyle.AddObserver("LeftButtonReleaseEvent", MouseCallback)
 
 viewer['window'].Render()
 viewer['window'].SetWindowName('Medview FourView')
