@@ -1,5 +1,25 @@
 import vtk
 
+def read_mha(fn):
+    reader = vtk.vtkMetaImageReader()
+    reader.SetFileName(fn)
+    reader.SetDataOrigin(0.0, 0.0, 0.0)
+    reader.Update()
+    return reader
+
+def read_dicom(dir_):
+  reader = vtk.vtkDICOMImageReader()
+  reader.SetDirectoryName('/full/path/to/my/dicom/images/')
+  reader.SetDataOrigin(0.0,0.0,0.0)
+  reader.Update()
+
+def read_vti(fn):
+    reader = vtk.vtkXMLImageDataReader()
+    reader.SetFileName(fn)
+    reader.SetDataOrigin(0.0, 0.0, 0.0)
+    reader.Update()
+    return reader
+    
 def add_pd(viewer, pd):
     #Create a mapper and actor
     for k in viewer['views'].keys():
