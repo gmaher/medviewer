@@ -1,10 +1,15 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(test)
-
+add_definitions(-std=c++11)
 set(CMAKE_INCLUDE_CURRENT_DIR True)
-find_package(ITK REQUIRED)
-include(${ITK_USE_FILE})
+set(ITK_DIR "$HOME/libraries/ITK/build")
+set(VTK_DIR "$HOME/libraries/ITK/build")
 
+find_package(ITK REQUIRED)
+find_package(VTK REQUIRED)
+
+include(${ITK_USE_FILE})
+include(${VTK_USE_FILE})
 find_package(Boost REQUIRED)
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIR})
@@ -17,3 +22,4 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 add_executable(test main.cpp)
 target_link_libraries(test ${ITK_LIBRARIES})
+target_link_libraries(test ${VTK_LIBRARIES})

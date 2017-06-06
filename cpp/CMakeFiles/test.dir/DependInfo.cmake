@@ -4,20 +4,28 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/marsdenlab/projects/medviewer/cpp/main.cpp" "/home/marsdenlab/projects/medviewer/cpp/CMakeFiles/test.dir/main.cpp.o"
+  "/media/gabriel/Data/projects/medviewer/cpp/main.cpp" "/media/gabriel/Data/projects/medviewer/cpp/CMakeFiles/test.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
   "ITK_IO_FACTORY_REGISTER_MANAGER"
+  "vtkRenderingContext2D_AUTOINIT=1(vtkRenderingContextOpenGL)"
+  "vtkRenderingCore_AUTOINIT=3(vtkInteractionStyle,vtkRenderingFreeType,vtkRenderingOpenGL)"
+  "vtkRenderingFreeType_AUTOINIT=1(vtkRenderingMatplotlib)"
+  "vtkRenderingVolume_AUTOINIT=1(vtkRenderingVolumeOpenGL)"
   )
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "."
   "ITKIOFactoryRegistration"
-  "/home/marsdenlab/libraries/vmtk/build/Install/include/ITK-4.10"
+  "/home/gabriel/anaconda2/include/python2.7"
+  "/home/gabriel/anaconda2/include/vtk-6.3"
+  "/usr/local/include/ITK-4.12"
+  "/usr/local/include"
+  "/home/gabriel/anaconda2/include"
   )
 
 # Targets to which this target links.
