@@ -204,6 +204,12 @@ vtkCommonDataModelModule.h
 vtkDataObject.h
 /home/gabriel/anaconda2/include/vtk-6.3/vtkDataObject.h
 
+/home/gabriel/anaconda2/include/vtk-6.3/vtkDataWriter.h
+vtkIOLegacyModule.h
+/home/gabriel/anaconda2/include/vtk-6.3/vtkIOLegacyModule.h
+vtkWriter.h
+/home/gabriel/anaconda2/include/vtk-6.3/vtkWriter.h
+
 /home/gabriel/anaconda2/include/vtk-6.3/vtkDebugLeaksManager.h
 vtkCommonCoreModule.h
 /home/gabriel/anaconda2/include/vtk-6.3/vtkCommonCoreModule.h
@@ -214,9 +220,13 @@ vtkSystemIncludes.h
 vtkAutoInit.h
 /home/gabriel/anaconda2/include/vtk-6.3/vtkAutoInit.h
 
+/home/gabriel/anaconda2/include/vtk-6.3/vtkIOCoreModule.h
+
 /home/gabriel/anaconda2/include/vtk-6.3/vtkIOImageModule.h
 vtkAutoInit.h
 /home/gabriel/anaconda2/include/vtk-6.3/vtkAutoInit.h
+
+/home/gabriel/anaconda2/include/vtk-6.3/vtkIOLegacyModule.h
 
 /home/gabriel/anaconda2/include/vtk-6.3/vtkIOStream.h
 vtkCommonCoreModule.h
@@ -430,6 +440,12 @@ vtkAlgorithm.h
 vtkPolyData.h
 /home/gabriel/anaconda2/include/vtk-6.3/vtkPolyData.h
 
+/home/gabriel/anaconda2/include/vtk-6.3/vtkPolyDataWriter.h
+vtkIOLegacyModule.h
+/home/gabriel/anaconda2/include/vtk-6.3/vtkIOLegacyModule.h
+vtkDataWriter.h
+/home/gabriel/anaconda2/include/vtk-6.3/vtkDataWriter.h
+
 /home/gabriel/anaconda2/include/vtk-6.3/vtkSetGet.h
 vtkCommonCoreModule.h
 /home/gabriel/anaconda2/include/vtk-6.3/vtkCommonCoreModule.h
@@ -612,6 +628,12 @@ vtkABI.h
 windows.h
 -
 
+/home/gabriel/anaconda2/include/vtk-6.3/vtkWriter.h
+vtkIOCoreModule.h
+/home/gabriel/anaconda2/include/vtk-6.3/vtkIOCoreModule.h
+vtkAlgorithm.h
+/home/gabriel/anaconda2/include/vtk-6.3/vtkAlgorithm.h
+
 /media/gabriel/Data/projects/medviewer/cpp/main.cpp
 iostream
 -
@@ -633,11 +655,15 @@ itkCastImageFilter.h
 -
 itkImageToVTKImageFilter.h
 -
+itkImageFileWriter.h
+-
 vtkMarchingCubes.h
 -
 vtkPoints.h
 -
 vtkPolyData.h
+-
+vtkPolyDataWriter.h
 -
 vtkImageData.h
 -

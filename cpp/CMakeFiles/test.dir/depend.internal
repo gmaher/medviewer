@@ -30,9 +30,12 @@ CMakeFiles/test.dir/main.cpp.o
  /home/gabriel/anaconda2/include/vtk-6.3/vtkDataArrayTemplateImplicit.txx
  /home/gabriel/anaconda2/include/vtk-6.3/vtkDataObject.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkDataSet.h
+ /home/gabriel/anaconda2/include/vtk-6.3/vtkDataWriter.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkDebugLeaksManager.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkFiltersCoreModule.h
+ /home/gabriel/anaconda2/include/vtk-6.3/vtkIOCoreModule.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkIOImageModule.h
+ /home/gabriel/anaconda2/include/vtk-6.3/vtkIOLegacyModule.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkIOStream.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkIOStreamFwd.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkIdList.h
@@ -63,6 +66,7 @@ CMakeFiles/test.dir/main.cpp.o
  /home/gabriel/anaconda2/include/vtk-6.3/vtkPoints.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkPolyData.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkPolyDataAlgorithm.h
+ /home/gabriel/anaconda2/include/vtk-6.3/vtkPolyDataWriter.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkSetGet.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkSmartPointer.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkSmartPointerBase.h
@@ -87,6 +91,7 @@ CMakeFiles/test.dir/main.cpp.o
  /home/gabriel/anaconda2/include/vtk-6.3/vtkVersionMacros.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkWeakPointerBase.h
  /home/gabriel/anaconda2/include/vtk-6.3/vtkWin32Header.h
+ /home/gabriel/anaconda2/include/vtk-6.3/vtkWriter.h
  /media/gabriel/Data/projects/medviewer/cpp/main.cpp
  /usr/local/include/ITK-4.12/ITKCommonExport.h
  /usr/local/include/ITK-4.12/ITKIOImageBaseExport.h

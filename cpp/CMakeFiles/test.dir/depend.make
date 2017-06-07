@@ -29,9 +29,12 @@ CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkDataA
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkDataArrayTemplateImplicit.txx
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkDataObject.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkDataSet.h
+CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkDataWriter.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkDebugLeaksManager.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkFiltersCoreModule.h
+CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkIOCoreModule.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkIOImageModule.h
+CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkIOLegacyModule.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkIOStream.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkIOStreamFwd.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkIdList.h
@@ -62,6 +65,7 @@ CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkPoint
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkPoints.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkPolyData.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkPolyDataAlgorithm.h
+CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkPolyDataWriter.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkSetGet.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkSmartPointer.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkSmartPointerBase.h
@@ -86,6 +90,7 @@ CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkVersi
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkVersionMacros.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkWeakPointerBase.h
 CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkWin32Header.h
+CMakeFiles/test.dir/main.cpp.o: /home/gabriel/anaconda2/include/vtk-6.3/vtkWriter.h
 CMakeFiles/test.dir/main.cpp.o: main.cpp
 CMakeFiles/test.dir/main.cpp.o: /usr/local/include/ITK-4.12/ITKCommonExport.h
 CMakeFiles/test.dir/main.cpp.o: /usr/local/include/ITK-4.12/ITKIOImageBaseExport.h

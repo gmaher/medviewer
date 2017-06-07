@@ -21,7 +21,7 @@ caster.SetInput(itk_image)
 scaler = itk.RescaleIntensityImageFilter[CF_image_type,CF_image_type].New()
 scaler.SetInput(caster.GetOutput())
 scaler.SetOutputMinimum(0.0)
-scaler.SetOutputMaximum(1.0)
+scaler.SetOutputMaximum(255.0)
 
 #Colliding fronts filter
 CF = itk.CollidingFrontsImageFilter[CF_image_type,CF_image_type].New()
@@ -58,8 +58,8 @@ seed2.InsertElement(0,node2)
 CF.SetInput(scaler.GetOutput())
 CF.SetSeedPoints1(seed1)
 CF.SetSeedPoints2(seed2)
-# CF.ApplyConnectivityOn()
-# CF.StopOnTargetsOn()
+CF.ApplyConnectivityOn()
+CF.StopOnTargetsOn()
 CF.Update()
 
 #Get output
@@ -99,7 +99,7 @@ writer_pd.Write()
 itkToVtk = itk.ImageToVTKImageFilter[CF_image_type].New()
 itkToVtk.SetInput(CF.GetOutput())
 itkToVtk.Update()
-
+print itkToVtk.GetOutput().GetScalarRange()
 MC = vtk.vtkMarchingCubes()
 MC.SetInputData(itkToVtk.GetOutput())
 MC.SetValue(0,0)

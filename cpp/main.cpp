@@ -8,9 +8,11 @@
 #include <itkImageFileWriter.h>
 #include <itkCastImageFilter.h>
 #include <itkImageToVTKImageFilter.h>
+#include <itkImageFileWriter.h>
 #include <vtkMarchingCubes.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
+#include <vtkPolyDataWriter.h>
 #include <vtkImageData.h>
 #include <vtkMetaImageReader.h>
 #include <vtkImageCast.h>
@@ -18,46 +20,37 @@
 #include <vector>
 
 
-void collidingFronts(vtkImageData* volumeImage,
+vtkSmartPointer<vtkPolyData> collidingFronts(vtkImageData* volumeImage,
   std::vector<std::vector<int>>& seeds1,
   std::vector<std::vector<int>>& seeds2,
   int lowerThreshold =0, int upperThreshold=0)
 {
 
-  typedef itk::Image<unsigned char,3> InputType;
+  typedef itk::Image<short int,3> InputType;
   typedef itk::Image<float,3> CFImageType;
 
   auto caster = vtkSmartPointer<vtkImageCast>::New();
   caster->SetInputData(volumeImage);
-  caster->SetOutputScalarTypeToUnsignedChar();
+  caster->SetOutputScalarTypeToFloat();
   caster->Update();
-  auto img = caster->GetOutput();
+
 
   //Colliding fronts needs an itk image, so we first convert vtk image to itk
-  auto VTKFilter = itk::VTKImageToImageFilter<InputType>::New();
-  VTKFilter->SetInput(img);
+  auto VTKFilter = itk::VTKImageToImageFilter<CFImageType>::New();
+  VTKFilter->SetInput(caster->GetOutput());
   VTKFilter->Update();
-  auto itkUCImage = VTKFilter->GetOutput();
 
-  InputType::IndexType index;
-  index[0] = 50;
-  index[1] = 50;
-  index[2] = 50;
-  auto c = itkUCImage->GetPixel(index);
+  auto itkImage = VTKFilter->GetOutput();
 
-  std::cout << "After access\n";
-
-  //cast to itk float image
-  auto itkCaster = itk::CastImageFilter<InputType,CFImageType>::New();
-  itkCaster->SetInput(itkUCImage);
-  auto itkImage = itkCaster->GetOutput();
+  auto thresh = itk::ThresholdImageFilter<CFImageType>::New();
 
   //check if we need to threshold the image
   if ((lowerThreshold != upperThreshold) && (lowerThreshold < upperThreshold)){
-    auto thresh = itk::ThresholdImageFilter<CFImageType>::New();
+
     thresh->SetInput(itkImage);
     thresh->ThresholdOutside(lowerThreshold,upperThreshold);
     thresh->SetOutsideValue(0.0);
+    thresh->Update();
     itkImage = thresh->GetOutput();
   }
 
@@ -66,6 +59,7 @@ void collidingFronts(vtkImageData* volumeImage,
   scaler->SetInput(itkImage);
   scaler->SetOutputMinimum(0.0);
   scaler->SetOutputMaximum(1.0);
+  scaler->Update();
 
   //now construct collidingfronts filter
   typedef itk::CollidingFrontsImageFilter<CFImageType,CFImageType> CFType;
@@ -112,24 +106,34 @@ void collidingFronts(vtkImageData* volumeImage,
     seedContainer2->InsertElement(i,n);
   }
 
-  std::cout << "Before CF\n";
   //now set the inputs for the colliding fronts filter
   CF->SetInput(scaler->GetOutput());
   CF->SetSeedPoints1(seedContainer1);
   CF->SetSeedPoints2(seedContainer2);
+  // CF->ApplyConnectivityOn();
+  CF->StopOnTargetsOn();
   CF->Update();
 
-  std::cout << "ater CF\n";
+  //convert CF segmentation to binary image
+  //CF sets everything inside to negative, everything outside to 0
+  thresh->SetInput(CF->GetOutput());
+  thresh->ThresholdBelow(0);
+  thresh->SetOutsideValue(1.0);
+  thresh->Update();
+
   //now convert back to vtk image
   auto itk_to_vtk = itk::ImageToVTKImageFilter<CFImageType>::New();
-  itk_to_vtk->SetInput(CF->GetOutput());
+  itk_to_vtk->SetInput(thresh->GetOutput());
   itk_to_vtk->Update();
 
-  //Extract a segmentation rom the image
+  //Extract a segmentation from the image
   auto MC = vtkSmartPointer<vtkMarchingCubes>::New();
   MC->SetInputData(itk_to_vtk->GetOutput());
-  MC->SetValue(0,0);
+  MC->SetValue(0,0.5);
+  MC->Update();
 
+  auto pd = MC->GetOutput();
+  return pd;
 }
 
 int main(){
@@ -148,9 +152,12 @@ int main(){
   auto image_fn = "/home/gabriel/dropbox/vascular_data/OSMSC0101/OSMSC0101-cm.mha";
   auto reader = vtkMetaImageReader::New();
   reader->SetFileName(image_fn);
-  reader->SetDataScalarType(10);
   reader->Update();
+
   vtkImageData* vtkImg = reader->GetOutput();
+
+  auto m = vtkImg->GetScalarRange();
+  std::cout << "before MC, max = " << m[1] << "\n";
 
   auto seed1 = std::vector<std::vector<int>>();
   auto v = std::vector<int>();
@@ -166,7 +173,15 @@ int main(){
   v2.push_back(80);
   seed2.push_back(v2);
 
-  collidingFronts(vtkImg,seed1,seed2);
+  auto pd = collidingFronts(vtkImg,seed1,seed2);
 
+  std::cout << "after retrun\n";
+  std::cout << "pd cells " << pd->GetNumberOfVerts() << "\n";
+  pd->Print(std::cout);
+  std::cout <<"Before write\n";
+  auto writer = vtkSmartPointer<vtkPolyDataWriter>::New();
+  writer->SetInputData(pd);
+  writer->SetFileName("seg_cpp.vtk");
+  writer->Write();
   return 0;
 }
